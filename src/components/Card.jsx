@@ -1,4 +1,4 @@
-const Card = ({ data }) => {
+const Card = ({ data, handleAddState }) => {
   return (
     <div
       className={`bg-white rounded-md py-5 px-10 mb-5 flex justify-between items-center shadow-xl ${
@@ -15,7 +15,7 @@ const Card = ({ data }) => {
         </div>
         <div>
           <div>
-            <span className="font-bold text-[var(--Desaturated-Dark-Cyan)]">
+            <span className="text-[18px] font-bold text-[var(--Desaturated-Dark-Cyan)]">
               {data?.company}
             </span>
             {data?.new && (
@@ -25,7 +25,7 @@ const Card = ({ data }) => {
             )}
             {data?.featured && (
               <a className=" cursor-pointer font-[700] bg-[var(--Very-Dark-Grayish-Cyan)] text-white uppercase text-[12px] py-[5px] px-[10px] rounded-xl">
-                featured!
+                featured
               </a>
             )}
           </div>
@@ -40,12 +40,37 @@ const Card = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-[10px] w-[50%]">
-        {
-            data?.languages?.map((lang, index) => (
-                <a key={index} className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100">{lang}</a>
-            ))
-        }
+      <div className="flex justify-end items-center gap-[10px] w-[50%]">
+        <a
+          onClick={() => handleAddState(data?.role, "role")}
+          className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
+        >
+          {data?.role}
+        </a>
+        <a
+          onClick={() => handleAddState(data?.level, "level")}
+          className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
+        >
+          {data?.level}
+        </a>
+        {data?.tools?.map((tool, index) => (
+          <a
+            onClick={() => handleAddState(tool, "tool")}
+            key={index}
+            className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
+          >
+            {tool}
+          </a>
+        ))}
+        {data?.languages?.map((lang, index) => (
+          <a
+            onClick={() => handleAddState(lang, "languages")}
+            key={index}
+            className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
+          >
+            {lang}
+          </a>
+        ))}
       </div>
     </div>
   )
