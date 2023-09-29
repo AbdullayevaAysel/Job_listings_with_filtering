@@ -12,7 +12,8 @@
     "contract": "Full Time",
     "location": "USA Only",
     "languages": ["HTML", "CSS", "JavaScript"],
-    "tools": []
+    "tools": [],
+    "filtered": false
   },
   {
     "id": 2,
@@ -27,7 +28,8 @@
     "contract": "Part Time",
     "location": "Remote",
     "languages": ["Python"],
-    "tools": ["React"]
+    "tools": ["React"],
+    "filtered": false
   },
   {
     "id": 3,
@@ -42,7 +44,8 @@
     "contract": "Part Time",
     "location": "USA Only",
     "languages": ["JavaScript"],
-    "tools": ["React", "Sass"]
+    "tools": ["React", "Sass"],
+    "filtered": false
   },
   {
     "id": 4,
@@ -57,7 +60,8 @@
     "contract": "Contract",
     "location": "USA Only",
     "languages": ["CSS", "JavaScript"],
-    "tools": []
+    "tools": [],
+    "filtered": false
   },
   {
     "id": 5,
@@ -72,7 +76,8 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["JavaScript"],
-    "tools": ["Ruby", "Sass"]
+    "tools": ["Ruby", "Sass"],
+    "filtered": false
   },
   {
     "id": 6,
@@ -87,7 +92,8 @@
     "contract": "Full Time",
     "location": "UK Only",
     "languages": ["Ruby"],
-    "tools": ["RoR"]
+    "tools": ["RoR"],
+    "filtered": false
   },
   {
     "id": 7,
@@ -102,7 +108,8 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["HTML", "JavaScript"],
-    "tools": ["Sass"]
+    "tools": ["Sass"],
+    "filtered": false
   },
   {
     "id": 8,
@@ -117,7 +124,8 @@
     "contract": "Full Time",
     "location": "USA Only",
     "languages": ["JavaScript"],
-    "tools": ["Vue", "Sass"]
+    "tools": ["Vue", "Sass"],
+    "filtered": false
   },
   {
     "id": 9,
@@ -132,7 +140,8 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["JavaScript", "Python"],
-    "tools": ["Django"]
+    "tools": ["Django"],
+    "filtered": false
   },
   {
     "id": 10,
@@ -147,6 +156,7 @@
     "contract": "Part Time",
     "location": "Worldwide",
     "languages": ["JavaScript"],
-    "tools": ["React", "Sass"]
+    "tools": ["React", "Sass"],
+    "filtered": false
   }
 ]

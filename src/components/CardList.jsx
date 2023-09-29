@@ -17,10 +17,11 @@ const CardList = () => {
       { id: nanoid(), name: el, filter: filter },
     ])
     setData(
-      data.filter((item) => {
-        if (item[filter] == el) {
-          return true
+      data.map((item) => {
+        if (item[filter] != el) {
+          return { ...item, filtered: true }
         }
+        return { ...item }
       })
     )
   }
@@ -30,9 +31,10 @@ const CardList = () => {
 
     setData(
       data.map((item) => {
-        if (item[itemFilter] == itemName) {
-          return {...item}
+        if (item[itemFilter] != itemName) {
+          return { ...item, filtered: false }
         }
+        return { ...item }
       })
     )
   }
@@ -79,9 +81,17 @@ const CardList = () => {
       )}
 
       {data &&
-        data?.map((item) => (
-          <Card key={item.id} data={item} handleAddState={handleAddState} />
-        ))}
+        data?.map((item) => {
+          if (!item?.filtered) {
+            return (
+              <Card
+                key={item?.id}
+                data={item}
+                handleAddState={handleAddState}
+              />
+            )
+          }
+        })}
     </>
   )
 }
