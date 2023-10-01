@@ -10,33 +10,55 @@ const CardList = () => {
   const dataFromLocalStorage = GetToStorage("jobs")
   const [data, setData] = useState(dataFromLocalStorage || api)
   const [state, setState] = useState(stateFromLocalStorage || [])
+  const [filtered, setFiltered] = useState([])
 
-  const handleAddState = (el, filter) => {
+  const handleAddState = (id, el, filter) => {
     setState((prevState) => [
       ...prevState,
       { id: nanoid(), name: el, filter: filter },
     ])
-    setData(
-      data.map((item) => {
-        if (item[filter] != el) {
-          return { ...item, filtered: true }
-        }
-        return { ...item }
-      })
-    )
+
+    // setFiltered(filtered => [...filtered, el])
+    setFiltered((filtered) => [
+      ...filtered,
+      {
+        key: filter,
+        value: el,
+      },
+    ])
+
+    console.log(filtered)
+
+    // setData(
+    //   data.map((item) => {
+    //     return filtered.forEach((obj) => {
+    //       if (item[obj.key] == obj.value) {
+    //         console.log(item);
+    //       }
+    //     })
+    //   })
+    // )
   }
 
   const handleRemoveState = (ItemId, itemName, itemFilter) => {
     setState(state.filter(({ id }) => id !== ItemId))
 
     setData(
-      data.map((item) => {
-        if (item[itemFilter] != itemName) {
-          return { ...item, filtered: false }
+      data.filter((item) => {
+        if (item[itemFilter] == itemName) {
+          return item
         }
-        return { ...item }
       })
     )
+
+    data.map((item) => {
+      // console.log(item.role,item.level, item.filtered);
+      if (item[itemFilter] == itemName) {
+        console.log(item[itemFilter], itemName, item.filtered)
+      } else {
+        // console.log(item[itemFilter], itemFilter,item.role, item.filtered)
+      }
+    })
   }
 
   const handleRemoveAllState = () => {
@@ -81,17 +103,9 @@ const CardList = () => {
       )}
 
       {data &&
-        data?.map((item) => {
-          if (!item?.filtered) {
-            return (
-              <Card
-                key={item?.id}
-                data={item}
-                handleAddState={handleAddState}
-              />
-            )
-          }
-        })}
+        data?.map((item) => (
+          <Card key={item?.id} data={item} handleAddState={handleAddState} />
+        ))}
     </>
   )
 }
