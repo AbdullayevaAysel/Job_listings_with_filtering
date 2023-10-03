@@ -11,7 +11,6 @@ const CardList = () => {
   const dataFromLocalStorage = GetToStorage("jobs")
   const [data, setData] = useState(dataFromLocalStorage || api)
   const [state, setState] = useState(stateFromLocalStorage || [])
-  const [filtered, setFiltered] = useState([])
 
   const [loading, setLoading] = useState(false)
 
@@ -23,45 +22,37 @@ const CardList = () => {
       return newState
     })
 
-    setFiltered((filtered) => {
-      const newFilter = filtered.some((item) => item.value === el)
-        ? filtered
-        : [...filtered, { key: filter, value: el }]
-      return newFilter
-    })
   }
 
-  const handleRemoveState = (ItemId, itemName) => {
+  const handleRemoveState = (ItemId) => {
     setState(state.filter(({ id }) => id !== ItemId))
-
-    setFiltered(filtered.filter(({ value }) => value !== itemName))
     setData(api)
   }
 
   const handleRemoveAllState = () => {
     setState([])
-    setFiltered([])
     setData(api)
   }
 
   useEffect(() => {
-    SetToStorage("detail", state)
     SetToStorage("jobs", data)
     setLoading(!loading)
-  }, [data, state])
+  }, [data])
 
   useEffect(() => {
     setData(
       data.filter((item) => {
-        return filtered.every((obj) => {
-          if (Array.isArray(item[obj.key])) {
-            return item[obj.key].includes(obj.value)
+        return state.every((obj) => {
+          if (Array.isArray(item[obj.filter])) {
+            return item[obj.filter].includes(obj.name)
           } else {
-            return item[obj.key] === obj.value
+            return item[obj.filter] === obj.name
           }
         })
       })
     )
+    SetToStorage("detail", state)
+    setLoading(!loading)
   }, [state])
 
   return (
@@ -76,7 +67,7 @@ const CardList = () => {
               >
                 <span className="px-[7px]">{item?.name}</span>
                 <span
-                  onClick={() => handleRemoveState(item?.id, item?.name)}
+                  onClick={() => handleRemoveState(item?.id)}
                   className="hover:bg-[var(--Very-Dark-Grayish-Cyan)] bg-[var(--Desaturated-Dark-Cyan)] py-1 px-2 rounded-r-sm flex items-center transition ease-in-out delay-100"
                 >
                   <img className="w-[10px]" src={clear} alt="" />
