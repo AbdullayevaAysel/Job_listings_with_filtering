@@ -42,20 +42,20 @@ const Card = ({ data, handleAddState }) => {
 
       <div className="flex justify-end items-center gap-[10px] w-[50%]">
         <a
-          onClick={() => handleAddState(data?.id, data?.role, "role")}
+          onClick={() => handleAddState(data?.role, "role")}
           className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
         >
           {data?.role}
         </a>
         <a
-          onClick={() => handleAddState(data?.id, data?.level, "level")}
+          onClick={() => handleAddState(data?.level, "level")}
           className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
         >
           {data?.level}
         </a>
         {data?.tools?.map((tool, index) => (
           <a
-            onClick={() => handleAddState(data?.id, tool, "tool")}
+            onClick={() => handleAddState(tool, "tools")}
             key={index}
             className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
           >
@@ -64,7 +64,7 @@ const Card = ({ data, handleAddState }) => {
         ))}
         {data?.languages?.map((lang, index) => (
           <a
-            onClick={() => handleAddState(data?.id, lang, "languages")}
+            onClick={() => handleAddState(lang, "languages")}
             key={index}
             className="cursor-pointer font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)]  py-[1px] px-[7px] rounded-sm inline-flex items-center justify-center hover:bg-[var(--Desaturated-Dark-Cyan)] hover:text-white transition ease-in-out delay-100"
           >

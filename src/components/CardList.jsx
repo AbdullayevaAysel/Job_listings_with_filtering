@@ -6,69 +6,63 @@ import { nanoid } from "nanoid"
 import { GetToStorage, SetToStorage } from "../utility/utilities"
 
 const CardList = () => {
+
   const stateFromLocalStorage = GetToStorage("detail")
   const dataFromLocalStorage = GetToStorage("jobs")
   const [data, setData] = useState(dataFromLocalStorage || api)
   const [state, setState] = useState(stateFromLocalStorage || [])
   const [filtered, setFiltered] = useState([])
 
-  const handleAddState = (id, el, filter) => {
-    setState((prevState) => [
-      ...prevState,
-      { id: nanoid(), name: el, filter: filter },
-    ])
+  const [loading, setLoading] = useState(false)
 
-    // setFiltered(filtered => [...filtered, el])
-    setFiltered((filtered) => [
-      ...filtered,
-      {
-        key: filter,
-        value: el,
-      },
-    ])
+  const handleAddState = (el, filter) => {
+    setState((prevState) => {
+      const newState = prevState.some((item) => item.name === el)
+        ? prevState
+        : [...prevState, { id: nanoid(), name: el, filter: filter }]
+      return newState
+    })
 
-    console.log(filtered)
-
-    // setData(
-    //   data.map((item) => {
-    //     return filtered.forEach((obj) => {
-    //       if (item[obj.key] == obj.value) {
-    //         console.log(item);
-    //       }
-    //     })
-    //   })
-    // )
+    setFiltered((filtered) => {
+      const newFilter = filtered.some((item) => item.value === el)
+        ? filtered
+        : [...filtered, { key: filter, value: el }]
+      return newFilter
+    })
   }
 
-  const handleRemoveState = (ItemId, itemName, itemFilter) => {
+  const handleRemoveState = (ItemId, itemName) => {
     setState(state.filter(({ id }) => id !== ItemId))
 
-    setData(
-      data.filter((item) => {
-        if (item[itemFilter] == itemName) {
-          return item
-        }
-      })
-    )
-
-    data.map((item) => {
-      // console.log(item.role,item.level, item.filtered);
-      if (item[itemFilter] == itemName) {
-        console.log(item[itemFilter], itemName, item.filtered)
-      } else {
-        // console.log(item[itemFilter], itemFilter,item.role, item.filtered)
-      }
-    })
+    setFiltered(filtered.filter(({ value }) => value !== itemName))
+    setData(api)
   }
 
   const handleRemoveAllState = () => {
     setState([])
+    setFiltered([])
+    setData(api)
   }
 
   useEffect(() => {
     SetToStorage("detail", state)
     SetToStorage("jobs", data)
+    setLoading(!loading)
   }, [data, state])
+
+  useEffect(() => {
+    setData(
+      data.filter((item) => {
+        return filtered.every((obj) => {
+          if (Array.isArray(item[obj.key])) {
+            return item[obj.key].includes(obj.value)
+          } else {
+            return item[obj.key] === obj.value
+          }
+        })
+      })
+    )
+  }, [state])
 
   return (
     <>
@@ -82,9 +76,7 @@ const CardList = () => {
               >
                 <span className="px-[7px]">{item?.name}</span>
                 <span
-                  onClick={() =>
-                    handleRemoveState(item?.id, item?.name, item?.filter)
-                  }
+                  onClick={() => handleRemoveState(item?.id, item?.name)}
                   className="hover:bg-[var(--Very-Dark-Grayish-Cyan)] bg-[var(--Desaturated-Dark-Cyan)] py-1 px-2 rounded-r-sm flex items-center transition ease-in-out delay-100"
                 >
                   <img className="w-[10px]" src={clear} alt="" />
@@ -102,10 +94,14 @@ const CardList = () => {
         </div>
       )}
 
-      {data &&
-        data?.map((item) => (
-          <Card key={item?.id} data={item} handleAddState={handleAddState} />
-        ))}
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          data &&
+          data?.map((item) => (
+            <Card key={item?.id} data={item} handleAddState={handleAddState} />
+          ))
+        )}
     </>
   )
 }
