@@ -1,5 +1,5 @@
 import Card from "./Card"
-import api from "../api/data.json"
+import { api } from "../api/data"
 import { clear } from "../assets"
 import { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
