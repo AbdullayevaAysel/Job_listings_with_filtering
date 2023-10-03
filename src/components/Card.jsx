@@ -9,7 +9,7 @@ const Card = ({ data, handleAddState }) => {
         <div className="rounded-full w-[50px] h-[50px] lg:w-[80px] -top-10  lg:h-[80px] absolute lg:static">
           <img
             className="w-full h-full object-cover"
-            src={`src/assets/${data?.logo}`}
+            src={`${data?.logo}`}
             alt=""
           />
         </div>
