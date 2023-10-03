@@ -14,3 +14,7 @@ body {
   --Dark-Grayish-Cyan: hsl(180, 8%, 52%);
   --Very-Dark-Grayish-Cyan: hsl(180, 14%, 20%);
 }
+
+.lists li:not(:first-of-type) {
+  list-style: disc;
+}

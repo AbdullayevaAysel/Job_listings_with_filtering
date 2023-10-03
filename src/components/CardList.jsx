@@ -6,7 +6,6 @@ import { nanoid } from "nanoid"
 import { GetToStorage, SetToStorage } from "../utility/utilities"
 
 const CardList = () => {
-
   const stateFromLocalStorage = GetToStorage("detail")
   const dataFromLocalStorage = GetToStorage("jobs")
   const [data, setData] = useState(dataFromLocalStorage || api)
@@ -21,7 +20,6 @@ const CardList = () => {
         : [...prevState, { id: nanoid(), name: el, filter: filter }]
       return newState
     })
-
   }
 
   const handleRemoveState = (ItemId) => {
@@ -58,12 +56,12 @@ const CardList = () => {
   return (
     <>
       {state.length > 0 && (
-        <div className="bg-white rounded-md mt-[-80px] py-5 px-10 mb-5 flex justify-between items-center shadow-xl z-10 relative">
+        <div className="bg-white rounded-md mt-[-80px] py-5 px-5 lg:px-10 mb-10 lg:mb-5 flex justify-between items-center shadow-xl z-10 relative">
           <div>
             {state?.map((item) => (
               <a
                 key={item?.id}
-                className="cursor-pointer mr-3 font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)] rounded-sm inline-flex justify-between transition ease-in-out delay-100"
+                className="cursor-pointer mb-3 lg:mb-0 mr-3 font-[700] bg-[var(--Light-Grayish-Cyan-Filter-Tablets)] text-[var(--Desaturated-Dark-Cyan)] rounded-sm inline-flex justify-between transition ease-in-out delay-100"
               >
                 <span className="px-[7px]">{item?.name}</span>
                 <span
@@ -85,14 +83,14 @@ const CardList = () => {
         </div>
       )}
 
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          data &&
-          data?.map((item) => (
-            <Card key={item?.id} data={item} handleAddState={handleAddState} />
-          ))
-        )}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        data &&
+        data?.map((item) => (
+          <Card key={item?.id} data={item} handleAddState={handleAddState} />
+        ))
+      )}
     </>
   )
 }
